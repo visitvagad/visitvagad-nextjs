@@ -1,0 +1,40 @@
+# Netlify Build Configuration for VisitVagad Next.js
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+# Do NOT set NODE_ENV=production in build environment
+# This prevents npm from installing devDependencies
+# Instead, let Next.js detect production from build context
+# Environment variables are configured in Netlify UI:
+# - APPWRITE_API_KEY
+# - AUTH_COOKIE_NAME
+# - SESSION_SECRET
+# - All NEXT_PUBLIC_* variables
+
+# Next.js runtime configuration for Netlify
+[functions]
+  node_bundler = "esbuild"
+
+# Redirects and rewrites
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Cache control headers
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Cache-Control = "no-cache, must-revalidate"
