@@ -4,14 +4,13 @@
   command = "npm run build"
   publish = ".next"
 
-# Do NOT set NODE_ENV=production in build environment
-# This prevents npm from installing devDependencies
-# Instead, let Next.js detect production from build context
-# Environment variables are configured in Netlify UI:
-# - APPWRITE_API_KEY
-# - AUTH_COOKIE_NAME
-# - SESSION_SECRET
-# - All NEXT_PUBLIC_* variables
+# CRITICAL: Override NODE_ENV to allow devDependencies installation
+# Netlify sets NODE_ENV=production by default, which prevents npm from installing
+# build tools like @tailwindcss/postcss and other devDependencies.
+# We set it to empty string to allow npm install to work, then Next.js will
+# auto-detect production mode from the build context anyway.
+[build.environment]
+  NODE_ENV = ""
 
 # Next.js runtime configuration for Netlify
 [functions]
