@@ -5,16 +5,10 @@ import { adminStorage } from '@/lib/appwrite-admin';
 import { BUCKET_ID } from '@/lib/appwrite-schema';
 import { requireAuth } from '@/lib/auth';
 import { ALLOWED_MIME_TYPES, MAX_FILE_SIZE } from '@/lib/validations';
+import type { UploadResult, UploadError } from '@/lib/media-client';
 
-export interface UploadResult {
-  fileId: string;
-  url: string;
-}
-
-export interface UploadError {
-  error: string;
-  code: 'NO_FILE' | 'TOO_LARGE' | 'INVALID_TYPE' | 'UPLOAD_FAILED';
-}
+// Re-export client types
+export type { UploadResult, UploadError } from '@/lib/media-client';
 
 /** Upload a file with full validation */
 export async function uploadFile(formData: FormData): Promise<UploadResult | UploadError> {
@@ -58,9 +52,4 @@ export async function deleteFile(fileId: string): Promise<{ success: boolean; er
   } catch {
     return { success: false, error: 'Failed to delete file' };
   }
-}
-
-/** Check if upload result is an error */
-export function isUploadError(result: UploadResult | UploadError): result is UploadError {
-  return 'error' in result;
 }

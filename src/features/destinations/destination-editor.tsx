@@ -76,7 +76,7 @@ export function DestinationEditor({ initialData, documentId }: Props) {
           <Textarea value={data.summary} onChange={(e) => update('summary', e.target.value)} placeholder="Brief description (max 512 chars)" maxLength={512} />
         </Field>
         <Field label="Story">
-          <Textarea value={data.story} onChange={(e) => update('story', e.target.value)} placeholder="Full editorial story…" className="min-h-[200px]" />
+          <Textarea value={data.story} onChange={(e) => update('story', e.target.value)} placeholder="Full editorial story…" className="min-h-50" />
         </Field>
         <Field label="Best Time to Visit">
           <Input value={data.bestTime} onChange={(e) => update('bestTime', e.target.value)} placeholder="October to March" />
@@ -109,7 +109,7 @@ export function DestinationEditor({ initialData, documentId }: Props) {
           <Input value={data.seoTitle} onChange={(e) => update('seoTitle', e.target.value)} placeholder="Page title for search engines" />
         </Field>
         <Field label="Meta Description">
-          <Textarea value={data.seoDescription} onChange={(e) => update('seoDescription', e.target.value)} placeholder="Description for search results" className="min-h-[80px]" />
+          <Textarea value={data.seoDescription} onChange={(e) => update('seoDescription', e.target.value)} placeholder="Description for search results" className="min-h-20" />
         </Field>
         <Field label="Keywords">
           <Input value={data.seoKeywords} onChange={(e) => update('seoKeywords', e.target.value)} placeholder="comma, separated, keywords" />

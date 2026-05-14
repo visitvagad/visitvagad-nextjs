@@ -1,8 +1,9 @@
 'use client';
 
 import { useState, useRef, useCallback } from 'react';
-import { uploadFile, deleteFile, isUploadError } from '@/lib/media';
-import type { UploadResult, UploadError } from '@/lib/media';
+import { uploadFile, deleteFile } from '@/lib/media';
+import { isUploadError } from '@/lib/media-client';
+import type { UploadResult, UploadError } from '@/lib/media-client';
 
 interface ImageUploadProps {
   value: string;

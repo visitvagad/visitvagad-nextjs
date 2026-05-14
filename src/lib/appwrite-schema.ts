@@ -1,12 +1,12 @@
 /**
  * Appwrite Collection Architecture for VisitVagad
  *
- * Database: visitvagad
+ * Database: 6a047889002003689732 (existing)
  * Collections defined below with attributes and indexes.
  * Run this schema via Appwrite Console or CLI to provision.
  */
 
-export const DATABASE_ID = 'visitvagad';
+export const DATABASE_ID = '6a047889002003689732';
 export const BUCKET_ID = 'media';
 
 export const COLLECTIONS = {

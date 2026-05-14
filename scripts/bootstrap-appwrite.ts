@@ -5,6 +5,10 @@
  * Uses the schema defined in src/lib/appwrite-schema.ts.
  * Safe to re-run — skips existing resources.
  */
+import * as dotenv from 'dotenv';
+dotenv.config({ path: '.env.local' });
+dotenv.config();
+
 import { Client, Databases, Storage } from 'node-appwrite';
 import { DATABASE_ID, BUCKET_ID, COLLECTIONS, SCHEMAS } from '../src/lib/appwrite-schema';
 
