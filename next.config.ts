@@ -1,6 +1,10 @@
 import type { NextConfig } from 'next';
+import path from 'path';
 
 const nextConfig: NextConfig = {
+  // Vercel output tracing root
+  outputFileTracingRoot: path.join(__dirname),
+
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
@@ -8,6 +12,8 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'fra.cloud.appwrite.io' },
     ],
   },
+
+  // Security headers
   async headers() {
     return [
       {
@@ -18,6 +24,13 @@ const nextConfig: NextConfig = {
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
           { key: 'X-DNS-Prefetch-Control', value: 'on' },
+        ],
+      },
+      // Cache static assets aggressively
+      {
+        source: '/(.*)\\.(js|css|woff2|png|jpg|svg|ico)',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
         ],
       },
     ];
