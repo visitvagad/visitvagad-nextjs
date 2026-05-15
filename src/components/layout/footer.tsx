@@ -1,5 +1,9 @@
 import Link from 'next/link';
+import { Instagram, Facebook, Youtube, Twitter } from 'lucide-react';
 import { Container } from '@/components/ui';
+import { SOCIALS } from '@/constants/socials';
+
+const iconMap = { instagram: Instagram, facebook: Facebook, youtube: Youtube, twitter: Twitter } as const;
 
 const footerSections = [
   {
@@ -41,6 +45,16 @@ export function Footer() {
             <p className="mt-4 text-sm text-text-inverse/70 leading-relaxed">
               Discover the sun-drenched heritage of Rajasthan&apos;s Vagad region — tribal culture, eco-tourism, and timeless stories.
             </p>
+            <div className="mt-5 flex gap-3">
+              {SOCIALS.map((social) => {
+                const Icon = iconMap[social.icon];
+                return (
+                  <a key={social.name} href={social.url} target="_blank" rel="noopener noreferrer" aria-label={social.name} className="text-text-inverse/50 hover:text-off-white transition-colors">
+                    <Icon size={20} />
+                  </a>
+                );
+              })}
+            </div>
           </div>
 
           {/* Link Sections */}

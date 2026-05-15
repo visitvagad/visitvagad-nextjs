@@ -15,12 +15,14 @@ const REQUIRED = [
   'NEXT_PUBLIC_APPWRITE_ENDPOINT',
   'NEXT_PUBLIC_APPWRITE_PROJECT_ID',
   'APPWRITE_API_KEY',
+  'NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT',
 ] as const;
 
 // Must be valid URLs
 const URL_VARS = [
   'NEXT_PUBLIC_APP_URL',
   'NEXT_PUBLIC_APPWRITE_ENDPOINT',
+  'NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT',
 ] as const;
 
 // Server secrets that must NEVER be NEXT_PUBLIC_
@@ -94,7 +96,7 @@ function main() {
 
   // 5. Optional warnings
   console.log('\nOptional services:');
-  const optional = ['NEXT_PUBLIC_SENTRY_DSN', 'SESSION_SECRET', 'SENTRY_AUTH_TOKEN'];
+  const optional = ['NEXT_PUBLIC_SENTRY_DSN', 'SESSION_SECRET', 'SENTRY_AUTH_TOKEN', 'IMAGEKIT_PUBLIC_KEY', 'IMAGEKIT_PRIVATE_KEY'];
   for (const key of optional) {
     if (vars[key]) {
       console.log(`  ✓ ${key} — configured`);
