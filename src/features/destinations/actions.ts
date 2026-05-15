@@ -56,7 +56,7 @@ export async function updateDestinationStatus(id: string, status: unknown) {
 
 /** Soft delete (archive) a destination — no permanent deletion */
 export async function archiveDestination(id: string) {
-  await requireRole('admin');
+  await requireRole('super_admin');
   await adminDb.updateDocument(DATABASE_ID, COL, id, {
     status: 'archived',
   });

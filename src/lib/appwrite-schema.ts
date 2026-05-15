@@ -17,6 +17,9 @@ export const COLLECTIONS = {
   GALLERIES: 'galleries',
   REGIONS: 'regions',
   SETTINGS: 'settings',
+  ITINERARIES: 'itineraries',
+  STAYS: 'stays',
+  GUIDES: 'guides',
 } as const;
 
 /** Attribute definitions for each collection */
@@ -142,6 +145,72 @@ export const SCHEMAS = {
     ],
     indexes: [
       { key: 'idx_key', type: 'unique', attributes: ['key'] },
+    ],
+  },
+
+  itineraries: {
+    attributes: [
+      { key: 'title', type: 'string', size: 256, required: true },
+      { key: 'slug', type: 'string', size: 256, required: true },
+      { key: 'duration', type: 'string', size: 64, required: true },
+      { key: 'category', type: 'enum', elements: ['day-trip', 'weekend', 'pilgrimage', 'eco', 'photography', 'cultural'], required: true },
+      { key: 'summary', type: 'string', size: 512, required: true },
+      { key: 'heroImage', type: 'string', size: 512, required: false },
+      { key: 'days', type: 'string', size: 10000, required: true }, // JSON: [{day, title, stops: [{destination, time, note}]}]
+      { key: 'district', type: 'enum', elements: ['Banswara', 'Dungarpur'], required: true },
+      { key: 'season', type: 'string', size: 128, required: false },
+      { key: 'seoTitle', type: 'string', size: 256, required: false },
+      { key: 'seoDescription', type: 'string', size: 512, required: false },
+      { key: 'featured', type: 'boolean', required: false },
+      { key: 'status', type: 'enum', elements: ['draft', 'published', 'archived'], required: true },
+    ],
+    indexes: [
+      { key: 'idx_slug', type: 'unique', attributes: ['slug'] },
+      { key: 'idx_status', type: 'key', attributes: ['status'] },
+      { key: 'idx_category', type: 'key', attributes: ['category'] },
+    ],
+  },
+
+  stays: {
+    attributes: [
+      { key: 'name', type: 'string', size: 256, required: true },
+      { key: 'slug', type: 'string', size: 256, required: true },
+      { key: 'type', type: 'enum', elements: ['hotel', 'guesthouse', 'eco-stay', 'heritage', 'homestay'], required: true },
+      { key: 'description', type: 'string', size: 2000, required: true },
+      { key: 'image', type: 'string', size: 512, required: false },
+      { key: 'district', type: 'enum', elements: ['Banswara', 'Dungarpur'], required: true },
+      { key: 'location', type: 'string', size: 256, required: true },
+      { key: 'priceRange', type: 'string', size: 64, required: false },
+      { key: 'amenities', type: 'string', size: 1000, required: false }, // JSON array
+      { key: 'contact', type: 'string', size: 256, required: false },
+      { key: 'nearbyAttractions', type: 'string', size: 1000, required: false }, // JSON array of slugs
+      { key: 'status', type: 'enum', elements: ['draft', 'published', 'archived'], required: true },
+    ],
+    indexes: [
+      { key: 'idx_slug', type: 'unique', attributes: ['slug'] },
+      { key: 'idx_status', type: 'key', attributes: ['status'] },
+      { key: 'idx_type', type: 'key', attributes: ['type'] },
+      { key: 'idx_district', type: 'key', attributes: ['district'] },
+    ],
+  },
+
+  guides: {
+    attributes: [
+      { key: 'name', type: 'string', size: 256, required: true },
+      { key: 'slug', type: 'string', size: 256, required: true },
+      { key: 'specialty', type: 'enum', elements: ['heritage', 'nature', 'tribal', 'photography', 'spiritual'], required: true },
+      { key: 'district', type: 'enum', elements: ['Banswara', 'Dungarpur'], required: true },
+      { key: 'languages', type: 'string', size: 256, required: true },
+      { key: 'bio', type: 'string', size: 1000, required: true },
+      { key: 'image', type: 'string', size: 512, required: false },
+      { key: 'experience', type: 'string', size: 64, required: false },
+      { key: 'contact', type: 'string', size: 256, required: false },
+      { key: 'status', type: 'enum', elements: ['draft', 'published', 'archived'], required: true },
+    ],
+    indexes: [
+      { key: 'idx_slug', type: 'unique', attributes: ['slug'] },
+      { key: 'idx_status', type: 'key', attributes: ['status'] },
+      { key: 'idx_specialty', type: 'key', attributes: ['specialty'] },
     ],
   },
 } as const;

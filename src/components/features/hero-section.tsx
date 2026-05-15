@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui';
 import { FadeIn } from '@/components/ui/motion';
+import { PLACEHOLDER_IMAGES } from '@/lib/images';
 import Link from 'next/link';
 
 export function HeroSection() {
@@ -9,28 +10,28 @@ export function HeroSection() {
     <section className="relative h-[85vh] min-h-[480px] max-h-[900px] flex items-center justify-center overflow-hidden -mt-16 md:-mt-20">
       {/* Background */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('/images/hero-vagad.jpg')" }}
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105"
+        style={{ backgroundImage: `url('${PLACEHOLDER_IMAGES.hero}')` }}
         role="img"
         aria-label="Aerial view of the Vagad region landscape"
       >
-        <div className="absolute inset-0 bg-surface-dark/50" />
+        <div className="absolute inset-0 bg-gradient-to-b from-surface-dark/40 via-surface-dark/50 to-surface-dark/70" />
       </div>
 
       {/* Content */}
       <div className="relative z-10 text-center px-5 sm:px-6 max-w-4xl mx-auto">
         <FadeIn delay={0.2}>
-          <p className="text-xs sm:text-sm uppercase tracking-[0.2em] text-off-white/80 mb-3 sm:mb-4">
+          <p className="text-[11px] sm:text-sm uppercase tracking-[0.2em] text-off-white/80 mb-3 sm:mb-4">
             Rajasthan&apos;s Hidden Heritage
           </p>
         </FadeIn>
         <FadeIn delay={0.4}>
-          <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold text-off-white tracking-tight leading-[1.1]">
+          <h1 className="text-[2.5rem] sm:text-5xl md:text-7xl font-bold text-off-white tracking-tight leading-[1.05]">
             Discover Vagad
           </h1>
         </FadeIn>
         <FadeIn delay={0.6}>
-          <p className="mt-4 sm:mt-6 text-base sm:text-lg md:text-xl text-off-white/80 max-w-2xl mx-auto leading-relaxed">
+          <p className="mt-4 sm:mt-6 text-[15px] sm:text-lg md:text-xl text-off-white/85 max-w-2xl mx-auto leading-relaxed font-light">
             Where tribal heritage meets untouched nature — explore the sun-drenched soul of Banswara and Dungarpur.
           </p>
         </FadeIn>

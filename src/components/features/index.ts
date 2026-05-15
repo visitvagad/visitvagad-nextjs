@@ -16,3 +16,6 @@ export { DestinationHighlights } from './destination-highlights';
 export { DestinationGallery } from './destination-gallery';
 export { NearbyPlaces } from './nearby-places';
 export { TravelTips } from './travel-tips';
+
+// Discovery
+export { RelatedItineraries, NearbyStays, SeasonalBanner } from './discovery';
