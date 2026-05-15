@@ -1,5 +1,6 @@
 import { Section, Container, Heading, Button } from '@/components/ui';
 import { FadeIn } from '@/components/ui/motion';
+import { PLACEHOLDER_IMAGES } from '@/lib/images';
 import Link from 'next/link';
 
 export function CultureSection() {
@@ -11,7 +12,7 @@ export function CultureSection() {
             <div className="relative aspect-[4/3] lg:h-96 rounded-2xl overflow-hidden">
               <div
                 className="absolute inset-0 bg-cover bg-center"
-                style={{ backgroundImage: "url('/images/culture-bhil.jpg')" }}
+                style={{ backgroundImage: `url('${PLACEHOLDER_IMAGES.culture}')` }}
               />
             </div>
           </FadeIn>

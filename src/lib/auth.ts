@@ -2,8 +2,7 @@
 
 import { cookies } from 'next/headers';
 import { Client, Account } from 'node-appwrite';
-import { adminUsers } from '@/lib/appwrite-admin';
-import type { UserRole } from '@/types/cms';
+import type { AdminRole } from '@/types/admin';
 
 const SESSION_COOKIE = process.env.AUTH_COOKIE_NAME || 'visitvagad_session';
 
@@ -34,14 +33,15 @@ export async function getUser() {
 }
 
 /** Get user role from Appwrite labels */
-export async function getUserRole(): Promise<UserRole | null> {
+export async function getUserRole(): Promise<AdminRole | null> {
   const user = await getUser();
   if (!user) return null;
 
-  // Appwrite stores labels as string array on user
   const labels = user.labels || [];
-  if (labels.includes('admin')) return 'admin';
+  if (labels.includes('super_admin') || labels.includes('superadmin')) return 'super_admin';
+  if (labels.includes('admin')) return 'super_admin'; // legacy compat
   if (labels.includes('editor')) return 'editor';
+  if (labels.includes('contributor')) return 'contributor';
   return null;
 }
 
@@ -55,9 +55,12 @@ export async function requireAuth() {
 }
 
 /** Require specific role */
-export async function requireRole(requiredRole: UserRole) {
+export async function requireRole(requiredRole: AdminRole) {
   const { user, role } = await requireAuth();
-  if (requiredRole === 'admin' && role !== 'admin') {
+  if (requiredRole === 'super_admin' && role !== 'super_admin') {
+    throw new Error('FORBIDDEN');
+  }
+  if (requiredRole === 'editor' && role === 'contributor') {
     throw new Error('FORBIDDEN');
   }
   return { user, role };
@@ -67,9 +70,11 @@ export async function requireRole(requiredRole: UserRole) {
 export async function login(email: string, password: string) {
   const { Account, Client } = await import('node-appwrite');
 
+  // Server SDK needs API key to create sessions on behalf of users
   const client = new Client()
     .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT!)
-    .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID!);
+    .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID!)
+    .setKey(process.env.APPWRITE_API_KEY!);
 
   const account = new Account(client);
   const session = await account.createEmailPasswordSession(email, password);
@@ -84,7 +89,7 @@ export async function login(email: string, password: string) {
   const user = await userAccount.get();
   const labels = user.labels || [];
 
-  if (!labels.includes('admin') && !labels.includes('editor')) {
+  if (!labels.includes('super_admin') && !labels.includes('superadmin') && !labels.includes('admin') && !labels.includes('editor') && !labels.includes('contributor')) {
     // Delete session if user has no valid role
     await userAccount.deleteSession(session.$id);
     throw new Error('FORBIDDEN');
@@ -94,12 +99,17 @@ export async function login(email: string, password: string) {
   cookieStore.set(SESSION_COOKIE, session.secret, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
-    sameSite: 'strict',
+    sameSite: 'lax',
     path: '/',
     maxAge: 60 * 60 * 24 * 7, // 7 days
   });
 
-  return { userId: user.$id, role: labels.includes('admin') ? 'admin' : 'editor' };
+  const role = labels.includes('super_admin') || labels.includes('superadmin') || labels.includes('admin')
+    ? 'super_admin'
+    : labels.includes('editor')
+      ? 'editor'
+      : 'contributor';
+  return { userId: user.$id, role };
 }
 
 /** Logout — clears session cookie and deletes Appwrite session */

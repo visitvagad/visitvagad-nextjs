@@ -57,3 +57,29 @@ body {
   background: var(--color-deep-teal);
   color: var(--color-off-white);
 }
+
+/* --- Cinematic Animations --- */
+@keyframes slowZoom {
+  from { transform: scale(1.02); }
+  to { transform: scale(1.06); }
+}
+
+/* --- Editorial Typography --- */
+.prose-editorial {
+  font-size: 1.125rem;
+  line-height: 1.85;
+  color: var(--color-text-secondary);
+}
+
+.prose-editorial p + p {
+  margin-top: 1.5em;
+}
+
+/* --- Image hover drift --- */
+.hover-drift {
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.hover-drift:hover {
+  transform: scale(1.03) translateY(-2px);
+}

@@ -1,5 +1,6 @@
 import { Container, Button } from '@/components/ui';
 import { FadeIn } from '@/components/ui/motion';
+import { PLACEHOLDER_IMAGES } from '@/lib/images';
 import Link from 'next/link';
 
 export function CTASection() {
@@ -7,10 +8,10 @@ export function CTASection() {
     <section className="relative py-24 md:py-32 overflow-hidden">
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('/images/cta-vagad.jpg')" }}
+        style={{ backgroundImage: `url('${PLACEHOLDER_IMAGES.cta}')` }}
         aria-hidden="true"
       >
-        <div className="absolute inset-0 bg-surface-dark/60" />
+        <div className="absolute inset-0 bg-gradient-to-r from-surface-dark/70 via-surface-dark/60 to-surface-dark/70" />
       </div>
 
       <Container className="relative z-10 text-center">

@@ -115,5 +115,5 @@ export interface FoodDoc extends BaseDocument {
   updatedBy: string | null;
 }
 
-/** User role */
-export type UserRole = 'admin' | 'editor';
+/** User role — re-exported from admin types */
+export type { AdminRole as UserRole } from '@/types/admin';

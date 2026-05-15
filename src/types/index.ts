@@ -85,3 +85,63 @@ export interface Region {
   image: string;
   destinationCount: number;
 }
+
+/** Itinerary day stop */
+export interface ItineraryStop {
+  destination: string; // slug
+  time: string;
+  note: string;
+}
+
+/** Itinerary day */
+export interface ItineraryDay {
+  day: number;
+  title: string;
+  stops: ItineraryStop[];
+}
+
+/** Itinerary */
+export interface Itinerary {
+  id: string;
+  slug: string;
+  title: string;
+  duration: string;
+  category: 'day-trip' | 'weekend' | 'pilgrimage' | 'eco' | 'photography' | 'cultural';
+  summary: string;
+  heroImage: string;
+  days: ItineraryDay[];
+  district: 'Banswara' | 'Dungarpur';
+  season: string;
+  seo: SeoMeta;
+  featured: boolean;
+}
+
+/** Stay */
+export interface Stay {
+  id: string;
+  slug: string;
+  name: string;
+  type: 'hotel' | 'guesthouse' | 'eco-stay' | 'heritage' | 'homestay';
+  description: string;
+  image: string;
+  district: 'Banswara' | 'Dungarpur';
+  location: string;
+  priceRange: string;
+  amenities: string[];
+  contact: string;
+  nearbyAttractions: string[];
+}
+
+/** Local Guide */
+export interface Guide {
+  id: string;
+  slug: string;
+  name: string;
+  specialty: 'heritage' | 'nature' | 'tribal' | 'photography' | 'spiritual';
+  district: 'Banswara' | 'Dungarpur';
+  languages: string;
+  bio: string;
+  image: string;
+  experience: string;
+  contact: string;
+}

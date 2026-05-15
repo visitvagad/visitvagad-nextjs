@@ -1,7 +1,7 @@
 'use client';
 
-import { motion, type HTMLMotionProps } from 'framer-motion';
-import { type ReactNode } from 'react';
+import { motion, useScroll, useTransform, type HTMLMotionProps } from 'framer-motion';
+import { type ReactNode, useRef } from 'react';
 
 interface FadeInProps extends HTMLMotionProps<'div'> {
   children: ReactNode;
@@ -23,7 +23,7 @@ export function FadeIn({ children, delay = 0, direction = 'up', ...props }: Fade
       initial={{ opacity: 0, ...directionOffset[direction] }}
       whileInView={{ opacity: 1, x: 0, y: 0 }}
       viewport={{ once: true, margin: '-64px' }}
-      transition={{ duration: 0.6, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
+      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
       {...props}
     >
       {children}
@@ -37,7 +37,7 @@ export function StaggerContainer({ children, className = '' }: { children: React
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-64px' }}
-      variants={{ visible: { transition: { staggerChildren: 0.12 } } }}
+      variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
       className={className}
     >
       {children}
@@ -49,11 +49,24 @@ export function StaggerItem({ children, className = '' }: { children: ReactNode;
   return (
     <motion.div
       variants={{
-        hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] } },
+        hidden: { opacity: 0, y: 16 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
       }}
       className={className}
     >
+      {children}
+    </motion.div>
+  );
+}
+
+/** Subtle parallax scroll effect for images/sections */
+export function ParallaxSection({ children, className = '', speed = 0.15 }: { children: ReactNode; className?: string; speed?: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  const y = useTransform(scrollYProgress, [0, 1], [`${speed * -50}px`, `${speed * 50}px`]);
+
+  return (
+    <motion.div ref={ref} style={{ y }} className={className}>
       {children}
     </motion.div>
   );
