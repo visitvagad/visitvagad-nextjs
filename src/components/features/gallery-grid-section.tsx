@@ -1,6 +1,6 @@
 import { Section, Container, Heading } from '@/components/ui';
 import { FadeIn, StaggerContainer, StaggerItem } from '@/components/ui/motion';
-import { PLACEHOLDER_IMAGES } from '@/lib/images';
+import { getOptimizedUrl, PLACEHOLDER_IMAGES } from '@/lib/images';
 import type { GalleryImage } from '@/types';
 
 const SPAN_CLASSES = ['sm:col-span-2 sm:row-span-2', '', '', 'sm:col-span-2', ''];
@@ -33,7 +33,7 @@ export function GalleryGridSection({ images }: { images: GalleryImage[] }) {
               <div className="relative w-full h-full rounded-xl sm:rounded-2xl overflow-hidden group bg-surface-alt">
                 <div
                   className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                  style={{ backgroundImage: `url('${img.src}')` }}
+                  style={{ backgroundImage: `url('${getOptimizedUrl(img.src, 'gallery')}')` }}
                   role="img"
                   aria-label={img.alt}
                 />

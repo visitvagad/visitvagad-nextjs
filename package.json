@@ -12,6 +12,8 @@
     "bootstrap:appwrite": "tsx scripts/bootstrap-appwrite.ts",
     "create:admin": "tsx scripts/create-admin.ts",
     "seed": "tsx scripts/seed.ts",
+    "sync:imagekit": "tsx scripts/sync-imagekit.ts",
+    "seed:media": "tsx scripts/seed-imagekit-media.ts",
     "generate:icons": "tsx scripts/generate-icons.ts"
   },
   "dependencies": {

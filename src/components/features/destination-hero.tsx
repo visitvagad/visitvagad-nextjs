@@ -1,11 +1,11 @@
 'use client';
 
 import { FadeIn } from '@/components/ui/motion';
-import { PLACEHOLDER_IMAGES } from '@/lib/images';
+import { getOptimizedUrl, PLACEHOLDER_IMAGES } from '@/lib/images';
 import type { Destination } from '@/types';
 
 export function DestinationHero({ destination }: { destination: Destination }) {
-  const imgUrl = destination.heroImage || PLACEHOLDER_IMAGES[destination.slug as keyof typeof PLACEHOLDER_IMAGES] || PLACEHOLDER_IMAGES.fallback;
+  const imgUrl = getOptimizedUrl(destination.heroImage || PLACEHOLDER_IMAGES[destination.slug as keyof typeof PLACEHOLDER_IMAGES], 'hero');
 
   return (
     <section className="relative h-[70vh] sm:h-[80vh] min-h-[480px] max-h-[900px] flex items-end overflow-hidden -mt-16 md:-mt-20">

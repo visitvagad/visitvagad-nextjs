@@ -2,16 +2,17 @@
 
 import { Button } from '@/components/ui';
 import { FadeIn } from '@/components/ui/motion';
-import { PLACEHOLDER_IMAGES } from '@/lib/images';
+import { getOptimizedUrl, PLACEHOLDER_IMAGES } from '@/lib/images';
 import Link from 'next/link';
 
 export function HeroSection() {
+  const heroUrl = getOptimizedUrl(PLACEHOLDER_IMAGES.hero, 'hero');
   return (
     <section className="relative h-[85vh] min-h-[480px] max-h-[900px] flex items-center justify-center overflow-hidden -mt-16 md:-mt-20">
       {/* Background */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105"
-        style={{ backgroundImage: `url('${PLACEHOLDER_IMAGES.hero}')` }}
+        style={{ backgroundImage: `url('${heroUrl}')` }}
         role="img"
         aria-label="Aerial view of the Vagad region landscape"
       >
