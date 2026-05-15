@@ -1,6 +1,6 @@
 import { Section, Container, Heading } from '@/components/ui';
 import { FadeIn, StaggerContainer, StaggerItem } from '@/components/ui/motion';
-import { PLACEHOLDER_IMAGES } from '@/lib/images';
+import { getOptimizedUrl, PLACEHOLDER_IMAGES } from '@/lib/images';
 import type { Destination } from '@/types';
 import Link from 'next/link';
 
@@ -19,7 +19,7 @@ export function FeaturedDestinationsSection({ destinations }: { destinations: De
 
         <StaggerContainer className="mt-8 sm:mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           {destinations.map((dest) => {
-            const imgUrl = dest.heroImage || PLACEHOLDER_IMAGES[dest.slug as keyof typeof PLACEHOLDER_IMAGES] || PLACEHOLDER_IMAGES.fallback;
+            const imgUrl = getOptimizedUrl(dest.heroImage || PLACEHOLDER_IMAGES[dest.slug as keyof typeof PLACEHOLDER_IMAGES], 'card');
             return (
               <StaggerItem key={dest.slug}>
                 <Link href={`/destinations/${dest.slug}`} className="group block">

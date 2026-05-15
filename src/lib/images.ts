@@ -1,9 +1,10 @@
 /**
  * Image utilities for VisitVagad
- * Provides fallback images, responsive sizing, and Unsplash-based tourism placeholders.
+ * Provides fallback images, responsive sizing, and ImageKit-optimized delivery.
  */
+import { imagePresets } from './imagekit';
 
-// Curated Unsplash images for Vagad tourism (royalty-free, high quality)
+// Curated fallback images (used when DB has no image and ImageKit has no match)
 export const PLACEHOLDER_IMAGES = {
   // Destinations
   'mangarh-hill': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=80',
@@ -65,6 +66,22 @@ export const PLACEHOLDER_IMAGES = {
 export function getImageUrl(slug: string | undefined, fallbackKey: keyof typeof PLACEHOLDER_IMAGES = 'fallback'): string {
   if (!slug) return PLACEHOLDER_IMAGES[fallbackKey];
   return PLACEHOLDER_IMAGES[slug as keyof typeof PLACEHOLDER_IMAGES] || PLACEHOLDER_IMAGES[fallbackKey];
+}
+
+/**
+ * Get optimized image URL — applies ImageKit transforms if the source is an ImageKit URL,
+ * otherwise returns the URL as-is. Use this for rendering DB-sourced images.
+ */
+export function getOptimizedUrl(
+  imageUrl: string | undefined | null,
+  preset: keyof typeof imagePresets = 'card',
+  fallbackKey: keyof typeof PLACEHOLDER_IMAGES = 'fallback'
+): string {
+  if (!imageUrl) return PLACEHOLDER_IMAGES[fallbackKey];
+  if (imageUrl.includes('imagekit.io') || imageUrl.includes('ik.imagekit.io')) {
+    return imagePresets[preset](imageUrl);
+  }
+  return imageUrl;
 }
 
 /** Get responsive image sizes string for Next.js Image */

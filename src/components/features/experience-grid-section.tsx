@@ -1,6 +1,6 @@
 import { Section, Container, Heading } from '@/components/ui';
 import { FadeIn, StaggerContainer, StaggerItem } from '@/components/ui/motion';
-import { PLACEHOLDER_IMAGES } from '@/lib/images';
+import { getOptimizedUrl } from '@/lib/images';
 import type { Experience } from '@/types';
 
 export function ExperienceGridSection({ experiences }: { experiences: Experience[] }) {
@@ -21,7 +21,7 @@ export function ExperienceGridSection({ experiences }: { experiences: Experience
 
         <StaggerContainer className="mt-8 sm:mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           {experiences.slice(0, 6).map((exp) => {
-            const imgUrl = exp.image || PLACEHOLDER_IMAGES.fallback;
+            const imgUrl = getOptimizedUrl(exp.image, 'card');
             return (
               <StaggerItem key={exp.id}>
                 <div className="group relative aspect-[4/3] rounded-2xl overflow-hidden bg-surface">

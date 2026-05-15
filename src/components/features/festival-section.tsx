@@ -1,6 +1,6 @@
 import { Section, Container, Heading } from '@/components/ui';
 import { FadeIn, StaggerContainer, StaggerItem } from '@/components/ui/motion';
-import { PLACEHOLDER_IMAGES } from '@/lib/images';
+import { getOptimizedUrl, PLACEHOLDER_IMAGES } from '@/lib/images';
 import type { Event } from '@/types';
 import Link from 'next/link';
 
@@ -19,7 +19,7 @@ export function FestivalSection({ events }: { events: Event[] }) {
 
         <StaggerContainer className="mt-8 sm:mt-12 grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           {events.map((event) => {
-            const imgUrl = event.image || PLACEHOLDER_IMAGES[event.slug as keyof typeof PLACEHOLDER_IMAGES] || PLACEHOLDER_IMAGES.fallback;
+            const imgUrl = getOptimizedUrl(event.image || PLACEHOLDER_IMAGES[event.slug as keyof typeof PLACEHOLDER_IMAGES], 'thumbnail');
             return (
               <StaggerItem key={event.slug}>
                 <Link href={`/events/${event.slug}`} className="group flex gap-4 sm:gap-6 p-3 sm:p-4 rounded-2xl hover:bg-surface transition-colors">

@@ -1,6 +1,6 @@
 import { Section, Container, Heading } from '@/components/ui';
 import { FadeIn, StaggerContainer, StaggerItem } from '@/components/ui/motion';
-import { PLACEHOLDER_IMAGES } from '@/lib/images';
+import { getOptimizedUrl, PLACEHOLDER_IMAGES } from '@/lib/images';
 import type { Region } from '@/types';
 import Link from 'next/link';
 
@@ -19,7 +19,7 @@ export function ExploreRegionsSection({ regions }: { regions: Region[] }) {
 
         <StaggerContainer className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
           {regions.map((region) => {
-            const imgUrl = region.image || PLACEHOLDER_IMAGES[region.name.toLowerCase() as keyof typeof PLACEHOLDER_IMAGES] || PLACEHOLDER_IMAGES.fallback;
+            const imgUrl = getOptimizedUrl(region.image || PLACEHOLDER_IMAGES[region.name.toLowerCase() as keyof typeof PLACEHOLDER_IMAGES], 'card');
             return (
               <StaggerItem key={region.id}>
                 <Link href={`/destinations?region=${region.id}`} className="group block relative h-80 rounded-2xl overflow-hidden bg-surface" aria-label={`Explore ${region.name} — ${region.tagline}`}>
