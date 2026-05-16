@@ -37,6 +37,7 @@ export const metadata: Metadata = {
     'Mangarh',
     'Beneshwar',
   ],
+  alternates: { canonical: 'https://visitvagad.com' },
   manifest: '/manifest.json',
   openGraph: {
     type: 'website',
@@ -45,9 +46,13 @@ export const metadata: Metadata = {
     title: 'VisitVagad — Discover Rajasthan\'s Vagad Region',
     description:
       'Explore the sun-drenched heritage of Banswara and Dungarpur. Tribal culture, eco-tourism, festivals, food, and immersive storytelling.',
+    images: [{ url: '/og-default.jpg', width: 1200, height: 630, alt: 'VisitVagad — Discover Rajasthan\'s Vagad Region' }],
   },
   twitter: {
     card: 'summary_large_image',
+    title: 'VisitVagad — Discover Rajasthan\'s Vagad Region',
+    description: 'Explore the sun-drenched heritage of Banswara and Dungarpur.',
+    images: ['/og-default.jpg'],
   },
   robots: {
     index: true,
@@ -65,6 +70,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+      <head>
+        <link rel="preconnect" href="https://ik.imagekit.io" />
+        <link rel="preconnect" href="https://images.unsplash.com" />
+        <link rel="dns-prefetch" href="https://ik.imagekit.io" />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
+      </head>
       <body className="min-h-screen flex flex-col bg-surface text-text-primary antialiased">
         <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-deep-teal focus:text-off-white focus:rounded-xl focus:text-sm focus:font-medium">
           Skip to content

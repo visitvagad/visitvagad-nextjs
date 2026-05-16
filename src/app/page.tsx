@@ -7,6 +7,7 @@ import {
   CultureSection,
   FestivalSection,
   GalleryGridSection,
+  SocialSection,
   CTASection,
 } from '@/components/features';
 import { JsonLd, websiteJsonLd } from '@/lib/seo';
@@ -38,6 +39,7 @@ export default async function HomePage() {
       <CultureSection />
       <FestivalSection events={events.slice(0, 4)} />
       <GalleryGridSection images={gallery} />
+      <SocialSection />
       <CTASection />
     </>
   );

@@ -1,5 +1,4 @@
-'use client';
-
+import Image from 'next/image';
 import { FadeIn } from '@/components/ui/motion';
 import { getOptimizedUrl, PLACEHOLDER_IMAGES } from '@/lib/images';
 import type { Destination } from '@/types';
@@ -9,14 +8,17 @@ export function DestinationHero({ destination }: { destination: Destination }) {
 
   return (
     <section className="relative h-[70vh] sm:h-[80vh] min-h-[480px] max-h-[900px] flex items-end overflow-hidden -mt-16 md:-mt-20">
-      {/* Cinematic background with subtle zoom */}
-      <div
-        className="absolute inset-0 bg-cover bg-center scale-[1.02] motion-safe:animate-[slowZoom_20s_ease-in-out_infinite_alternate]"
-        style={{ backgroundImage: `url('${imgUrl}')` }}
-        role="img"
-        aria-label={`${destination.title} — ${destination.district}, Rajasthan`}
+      {/* LCP-optimized hero image */}
+      <Image
+        src={imgUrl}
+        alt={`${destination.title} — ${destination.district}, Rajasthan`}
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover scale-[1.02] motion-safe:animate-[slowZoom_20s_ease-in-out_infinite_alternate]"
+        quality={85}
       />
-      {/* Cinematic gradient overlay */}
+      {/* Cinematic gradient overlays */}
       <div className="absolute inset-0 bg-gradient-to-t from-surface-dark via-surface-dark/40 to-surface-dark/10" />
       <div className="absolute inset-0 bg-gradient-to-r from-surface-dark/30 to-transparent" />
 

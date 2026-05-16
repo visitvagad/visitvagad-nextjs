@@ -19,3 +19,6 @@ export { TravelTips } from './travel-tips';
 
 // Discovery
 export { RelatedItineraries, NearbyStays, SeasonalBanner } from './discovery';
+
+// Social
+export { SocialSection } from './social-section';

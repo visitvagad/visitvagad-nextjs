@@ -1,23 +1,25 @@
-'use client';
-
+import Image from 'next/image';
+import Link from 'next/link';
 import { Button } from '@/components/ui';
 import { FadeIn } from '@/components/ui/motion';
 import { getOptimizedUrl, PLACEHOLDER_IMAGES } from '@/lib/images';
-import Link from 'next/link';
 
 export function HeroSection() {
   const heroUrl = getOptimizedUrl(PLACEHOLDER_IMAGES.hero, 'hero');
+
   return (
     <section className="relative h-[85vh] min-h-[480px] max-h-[900px] flex items-center justify-center overflow-hidden -mt-16 md:-mt-20">
-      {/* Background */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105"
-        style={{ backgroundImage: `url('${heroUrl}')` }}
-        role="img"
-        aria-label="Aerial view of the Vagad region landscape"
-      >
-        <div className="absolute inset-0 bg-gradient-to-b from-surface-dark/40 via-surface-dark/50 to-surface-dark/70" />
-      </div>
+      {/* LCP-optimized background image */}
+      <Image
+        src={heroUrl}
+        alt="Aerial view of the Vagad region landscape"
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover scale-105"
+        quality={85}
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-surface-dark/40 via-surface-dark/50 to-surface-dark/70" />
 
       {/* Content */}
       <div className="relative z-10 text-center px-5 sm:px-6 max-w-4xl mx-auto">

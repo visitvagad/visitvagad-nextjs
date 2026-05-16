@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { Section, Container, Heading } from '@/components/ui';
 import { FadeIn, StaggerContainer, StaggerItem } from '@/components/ui/motion';
 import { getOptimizedUrl } from '@/lib/images';
@@ -10,9 +11,7 @@ export function ExperienceGridSection({ experiences }: { experiences: Experience
     <Section spacing="lg" className="bg-surface-alt">
       <Container>
         <FadeIn>
-          <p className="text-sm uppercase tracking-[0.15em] text-terracotta font-medium mb-4">
-            Experiences
-          </p>
+          <p className="text-sm uppercase tracking-[0.15em] text-terracotta font-medium mb-4">Experiences</p>
           <Heading as="h2">Immerse Yourself</Heading>
           <p className="mt-4 text-text-secondary max-w-2xl">
             From spiritual journeys to eco-treks — experiences that connect you to the land and its people.
@@ -25,9 +24,12 @@ export function ExperienceGridSection({ experiences }: { experiences: Experience
             return (
               <StaggerItem key={exp.id}>
                 <div className="group relative aspect-[4/3] rounded-2xl overflow-hidden bg-surface">
-                  <div
-                    className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                    style={{ backgroundImage: `url('${imgUrl}')` }}
+                  <Image
+                    src={imgUrl}
+                    alt={exp.title}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-surface-dark/80 via-surface-dark/30 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6">

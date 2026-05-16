@@ -1,15 +1,15 @@
-import type { Metadata } from 'next';
 import { Section, Container, Heading } from '@/components/ui';
 import { FadeIn, StaggerContainer, StaggerItem } from '@/components/ui/motion';
 import { PLACEHOLDER_IMAGES } from '@/lib/images';
 import { getPublishedItineraries } from '@/lib/api';
+import { createPageMetadata } from '@/lib/seo';
 import Link from 'next/link';
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: 'Itineraries — Plan Your Vagad Journey',
   description: 'Curated travel itineraries for exploring the Vagad region — day trips, weekend getaways, pilgrimage routes, and photography trails.',
-  openGraph: { title: 'Itineraries — Plan Your Vagad Journey', description: 'Curated travel itineraries for the Vagad region.' },
-};
+  path: '/itineraries',
+});
 
 export default async function ItinerariesPage() {
   const itineraries = await getPublishedItineraries();

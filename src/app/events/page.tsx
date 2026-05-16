@@ -1,13 +1,15 @@
-import type { Metadata } from 'next';
 import { Section, Container, Heading } from '@/components/ui';
 import { FadeIn, StaggerContainer, StaggerItem } from '@/components/ui/motion';
 import { getPublishedEvents } from '@/lib/api';
 import Link from 'next/link';
 
-export const metadata: Metadata = {
+import { createPageMetadata } from '@/lib/seo';
+
+export const metadata = createPageMetadata({
   title: 'Events & Festivals — VisitVagad',
   description: 'Experience vibrant tribal festivals, cultural events, and celebrations across Banswara and Dungarpur.',
-};
+  path: '/events',
+});
 
 export default async function EventsPage() {
   const events = await getPublishedEvents();

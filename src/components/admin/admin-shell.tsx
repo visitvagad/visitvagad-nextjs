@@ -54,6 +54,8 @@ const NAV_GROUPS: NavGroup[] = [
     label: 'Assets',
     items: [
       { label: 'Media Library', href: '/admin/media', icon: <Image size={18} /> },
+      { label: 'Media QA', href: '/admin/media-qa', icon: <Image size={18} /> },
+      { label: 'Editorial', href: '/admin/editorial', icon: <Search size={18} /> },
       { label: 'SEO', href: '/admin/seo', icon: <Search size={18} />, permission: 'canManageSEO' },
     ],
   },

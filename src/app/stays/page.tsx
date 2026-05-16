@@ -1,15 +1,15 @@
-import type { Metadata } from 'next';
+import Image from 'next/image';
 import { Section, Container, Heading } from '@/components/ui';
 import { FadeIn, StaggerContainer, StaggerItem } from '@/components/ui/motion';
 import { PLACEHOLDER_IMAGES } from '@/lib/images';
 import { getPublishedStays } from '@/lib/api';
-import Link from 'next/link';
+import { createPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: 'Where to Stay — Vagad Accommodation',
   description: 'Find heritage hotels, eco lodges, homestays, and guest houses across Banswara and Dungarpur in the Vagad region.',
-  openGraph: { title: 'Where to Stay — Vagad Accommodation', description: 'Heritage hotels, eco lodges, and homestays in Vagad.' },
-};
+  path: '/stays',
+});
 
 const TYPE_LABELS: Record<string, string> = {
   hotel: 'Hotel', guesthouse: 'Guest House', 'eco-stay': 'Eco Stay', heritage: 'Heritage', homestay: 'Homestay',
@@ -37,9 +37,12 @@ export default async function StaysPage() {
               <StaggerItem key={stay.slug}>
                 <div className="group rounded-2xl overflow-hidden bg-surface-alt hover-drift">
                   <div className="relative aspect-[4/3] overflow-hidden">
-                    <div
-                      className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                      style={{ backgroundImage: `url('${stay.image || PLACEHOLDER_IMAGES.fallback}')` }}
+                    <Image
+                      src={stay.image || PLACEHOLDER_IMAGES.fallback}
+                      alt={stay.name}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="absolute top-3 left-3">
                       <span className="px-2.5 py-1 text-[11px] font-medium uppercase tracking-wider bg-surface/90 text-text-primary rounded-full backdrop-blur-sm">

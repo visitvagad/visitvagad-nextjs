@@ -1,18 +1,14 @@
-import type { Metadata } from 'next';
 import { Section, Container, Heading } from '@/components/ui';
 import { FadeIn, StaggerContainer, StaggerItem } from '@/components/ui/motion';
 import { getPublishedDestinations } from '@/lib/api';
+import { createPageMetadata } from '@/lib/seo';
 import Link from 'next/link';
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: 'Destinations — Explore Vagad',
   description: 'Explore heritage sites, sacred temples, lakes, waterfalls, and hidden gems across Banswara and Dungarpur in Rajasthan\'s Vagad region.',
-  openGraph: {
-    title: 'Destinations — Explore Vagad',
-    description: 'Heritage sites, sacred temples, lakes, and hidden gems across the Vagad region of Rajasthan.',
-    type: 'website',
-  },
-};
+  path: '/destinations',
+});
 
 export default async function DestinationsPage() {
   const destinations = await getPublishedDestinations();

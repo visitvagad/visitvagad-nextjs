@@ -1,13 +1,14 @@
-import type { Metadata } from 'next';
 import { Section, Container, Heading } from '@/components/ui';
 import { FadeIn, StaggerContainer, StaggerItem } from '@/components/ui/motion';
 import { getPublishedFood } from '@/lib/api';
+import { createPageMetadata } from '@/lib/seo';
 import Link from 'next/link';
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: 'Food & Cuisine — VisitVagad',
   description: 'Discover the authentic tribal cuisine and culinary traditions of Rajasthan\'s Vagad region.',
-};
+  path: '/food',
+});
 
 export default async function FoodPage() {
   const food = await getPublishedFood();

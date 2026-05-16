@@ -1,8 +1,9 @@
+import Image from 'next/image';
+import Link from 'next/link';
 import { Section, Container } from '@/components/ui';
 import { FadeIn, StaggerContainer, StaggerItem } from '@/components/ui/motion';
 import { PLACEHOLDER_IMAGES } from '@/lib/images';
 import type { Itinerary, Stay } from '@/types';
-import Link from 'next/link';
 
 /** Related itineraries for a destination */
 export function RelatedItineraries({ itineraries }: { itineraries: Itinerary[] }) {
@@ -19,7 +20,13 @@ export function RelatedItineraries({ itineraries }: { itineraries: Itinerary[] }
             <StaggerItem key={itin.slug}>
               <Link href={`/itineraries/${itin.slug}`} className="group flex gap-4 p-3 rounded-xl hover:bg-surface transition-colors">
                 <div className="relative w-20 h-20 shrink-0 rounded-lg overflow-hidden">
-                  <div className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" style={{ backgroundImage: `url('${itin.heroImage || PLACEHOLDER_IMAGES.fallback}')` }} />
+                  <Image
+                    src={itin.heroImage || PLACEHOLDER_IMAGES.fallback}
+                    alt={itin.title}
+                    fill
+                    sizes="80px"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
                 </div>
                 <div className="flex flex-col justify-center min-w-0">
                   <span className="text-[11px] uppercase tracking-wider text-text-muted">{itin.duration} · {itin.category}</span>

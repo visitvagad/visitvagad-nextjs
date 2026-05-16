@@ -1,8 +1,9 @@
+import Image from 'next/image';
+import Link from 'next/link';
 import { Section, Container, Heading } from '@/components/ui';
 import { FadeIn, StaggerContainer, StaggerItem } from '@/components/ui/motion';
 import { getOptimizedUrl, PLACEHOLDER_IMAGES } from '@/lib/images';
 import type { Destination } from '@/types';
-import Link from 'next/link';
 
 export function FeaturedDestinationsSection({ destinations }: { destinations: Destination[] }) {
   if (destinations.length === 0) return null;
@@ -11,9 +12,7 @@ export function FeaturedDestinationsSection({ destinations }: { destinations: De
     <Section spacing="lg">
       <Container>
         <FadeIn>
-          <p className="text-sm uppercase tracking-[0.15em] text-terracotta font-medium mb-4">
-            Featured
-          </p>
+          <p className="text-sm uppercase tracking-[0.15em] text-terracotta font-medium mb-4">Featured</p>
           <Heading as="h2">Must-Visit Destinations</Heading>
         </FadeIn>
 
@@ -24,9 +23,12 @@ export function FeaturedDestinationsSection({ destinations }: { destinations: De
               <StaggerItem key={dest.slug}>
                 <Link href={`/destinations/${dest.slug}`} className="group block">
                   <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-surface-alt">
-                    <div
-                      className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                      style={{ backgroundImage: `url('${imgUrl}')` }}
+                    <Image
+                      src={imgUrl}
+                      alt={dest.title}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-surface-dark/80 via-surface-dark/20 to-transparent" />
                     <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6">

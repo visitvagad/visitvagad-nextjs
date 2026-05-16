@@ -14,6 +14,8 @@ import {
 } from '@/components/features';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Container } from '@/components/ui';
+import { BookmarkButton } from '@/components/ui/bookmark-button';
+import { TrackView } from '@/components/ui/track-view';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -88,12 +90,16 @@ export default async function DestinationPage({ params }: Props) {
       <JsonLd data={breadcrumbs} />
       <DestinationHero destination={dest} />
       <Container>
-        <Breadcrumb items={[
-          { label: 'Home', href: '/' },
-          { label: 'Destinations', href: '/destinations' },
-          { label: dest.title },
-        ]} />
+        <div className="flex items-center justify-between gap-4 flex-wrap">
+          <Breadcrumb items={[
+            { label: 'Home', href: '/' },
+            { label: 'Destinations', href: '/destinations' },
+            { label: dest.title },
+          ]} />
+          <BookmarkButton item={{ slug: dest.slug, title: dest.title, type: 'destination', image: dest.heroImage }} />
+        </div>
       </Container>
+      <TrackView item={{ slug: dest.slug, title: dest.title, type: 'destination', image: dest.heroImage }} />
       {dest.story && <DestinationStory story={dest.story} />}
       {dest.highlights.length > 0 && <DestinationHighlights highlights={dest.highlights} />}
       {dest.gallery.length > 0 && <DestinationGallery gallery={dest.gallery} />}

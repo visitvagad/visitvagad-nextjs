@@ -17,7 +17,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: event.seo.title,
     description: event.seo.description,
     alternates: { canonical: getCanonicalUrl(url) },
-    openGraph: { title: event.seo.title, description: event.seo.description, url: getCanonicalUrl(url) },
+    openGraph: { title: event.seo.title, description: event.seo.description, url: getCanonicalUrl(url), images: event.image ? [{ url: event.image, width: 1200, height: 630 }] : undefined },
+    twitter: { card: 'summary_large_image', title: event.seo.title, description: event.seo.description, images: event.image ? [event.image] : undefined },
   };
 }
 
